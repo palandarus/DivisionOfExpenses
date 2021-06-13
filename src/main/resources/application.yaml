@@ -17,4 +17,4 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
-    schemas: does
+    schemas: de656ttpn4fd6f
