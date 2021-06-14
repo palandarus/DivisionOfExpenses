@@ -41,9 +41,9 @@ public class RegistrationController {
             Calendar timeBefore = new GregorianCalendar();
             timeBefore.add(Calendar.HOUR, +1);
             String theme = "registration on Division of Expense";
-            String message = "Welcome to Division of Expenses.\n Please, visit next link: http://localhost:8189/registration/" +
+            String message = "Welcome to Division of Expenses.\n Please, visit next link: https://divisionofexpensesfront.herokuapp.com/user/register/" +
                     registrationTicket.getCheckingticket() +
-                    " it will be active before " +
+                    "/confirm , it will be active before " +
                     new SimpleDateFormat("yyyyMMdd_HHmmss").format(timeBefore.getTime());
             emailSendingUtility.sendEmail(registrationTicket.getEmail(), theme, message);
             return new ResponseEntity<String>("", HttpStatus.ACCEPTED);
@@ -64,6 +64,7 @@ public class RegistrationController {
         } catch (CheckingTicketNotFoundException e) {
             return new ResponseEntity<String>("checking ticket " + checkingTicket + " not found", HttpStatus.NOT_FOUND);
         }
+
         return new ResponseEntity<String>("User was successfully created", HttpStatus.CREATED);
     }
 

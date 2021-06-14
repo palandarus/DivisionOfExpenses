@@ -1,6 +1,7 @@
 package ru.division.of.expenses.app.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.division.of.expenses.app.dto.EventDto;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/event")
+@Slf4j
 public class EventController {
     private final EventService eventService;
 
@@ -43,7 +45,9 @@ public class EventController {
     @GetMapping("/{id}")
     public ResponseEntity<?> findEventByIdByParticipant(Principal principal,
                                            @PathVariable Long id) {
-        return eventService.findEventDtoForEditPageByIdByParticipant(principal.getName(), id);
+        ResponseEntity<?> responseEntity=eventService.findEventDtoForEditPageByIdByParticipant(principal.getName(), id);
+        log.info("out JSON is: "+responseEntity);
+        return responseEntity;
     }
 
     @PostMapping

@@ -5,12 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.division.of.expenses.app.model.Event;
+import ru.division.of.expenses.app.model.EventMember;
 import ru.division.of.expenses.app.model.User;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -26,6 +25,7 @@ public class EventDtoForEditPage {
     private BigDecimal totalEventSum;
     private List<String> eventUserList;
     private Integer amountOfExpense;
+    private Map<String, BigDecimal> eventMemberMap=new HashMap<>();
 
     public EventDtoForEditPage(Event event) {
         this.id = event.getId();
@@ -38,7 +38,9 @@ public class EventDtoForEditPage {
                 .map(User::getUsername)
                 .collect(Collectors.toList());
         this.description = event.getDescription();
-
+        for (EventMember eventMember: event.getEventMembers()) {
+            eventMemberMap.put(eventMember.getUser().getUsername(), eventMember.getSaldo());
+        }
     }
 
 }
